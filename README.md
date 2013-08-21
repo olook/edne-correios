@@ -8,7 +8,7 @@ No entanto, essa base é disponibilizada apenas para download. Então criamos um
 
 Baixe o projeto usando Git:
 ```shell
-git clone git@github.com:elo7/edne-correios.git
+git clone git@github.com:olook/edne-correios.git
 ```
 
 Baixe as dependências do projeto:
