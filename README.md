@@ -8,7 +8,7 @@ No entanto, essa base é disponibilizada apenas para download. Então criamos um
 
 Baixe o projeto usando Git:
 ```shell
-git clone git@github.com:elo7/edne-correios.git
+git clone git@github.com:olook/edne-correios.git
 ```
 
 Baixe as dependências do projeto:
@@ -61,7 +61,7 @@ mv eDNE_Delta_Basico_ddmm/Delimitado/DELTA* edne-correios/data/delta/
 
 Importe a base e o delta:
 ```shell
-bundle exec rake import:logs
+bundle exec rake import:log
 bundle exec rake import:delta
 ```
 
@@ -82,4 +82,9 @@ CREATE TABLE `ceps` (
 O comando abaixo irá exportar todos os CEPs para esse formato.
 ```shell
 bundle exec rake import:join
+```
+
+Para exportar a base, digite o seguinte comando:
+```shell
+sqlite3 db/<banco>.sqlite3 .dump >> <arquivo_de_destino>
 ```
