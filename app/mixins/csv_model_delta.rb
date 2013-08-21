@@ -24,10 +24,10 @@ module CSVModelDelta
         if model.insertable?
           model.save
 
-        elsif model.deletable?
-          model.find_same.destroy
+        elsif model.deletable? && model.find_same
+          model.find_same.destroy 
 
-        elsif model.updatable?
+        elsif model.updatable? && model.find_same
           model_to_update = model.find_same
           model_to_update.merge! model
           model_to_update.save

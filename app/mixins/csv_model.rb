@@ -44,7 +44,7 @@ module CSVModel
 
     def parse file_name
       models = []
-
+      begin
       open(file_name, "r:ISO-8859-1").readlines.each do |line|
         line.encode! "UTF-8"
         line.gsub! "\n", ""
@@ -53,6 +53,9 @@ module CSVModel
         model = new
         model.fill! line.split("@")
         models.push model
+      end
+      rescue => e 
+        puts e.message
       end
       models
     end
