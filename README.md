@@ -53,8 +53,8 @@ Baixe apenas o arquivo base e o último de atualização.
 Coloque os arquivos dentro das pastas designadas no projeto `edne-correios`.
 
 ```shell
-mv eDNE_Basico_ddmm/Delimitado/LOG* edne-correios/data/log/
-mv eDNE_Delta_Basico_ddmm/Delimitado/DELTA* edne-correios/data/delta/
+cp eDNE_Basico_ddmm/Delimitado/LOG* edne-correios/data/log/
+cp eDNE_Delta_Basico_ddmm/Delimitado/DELTA* edne-correios/data/delta/
 ```
 
 ### Importação
