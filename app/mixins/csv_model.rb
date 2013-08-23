@@ -70,7 +70,8 @@ module CSVModel
       end
 
       bulk_insert = "INSERT INTO #{self.storage_name} (#{self.column_names.join(',')}) VALUES "
-      while models = parses.shift(500) do
+      models = parses.shift(500)
+      while !models.empty? do
         values = models.map{|m| "(#{ m.class.column_names.map{ |c| "'#{m.send(c).to_s.gsub("'", "\\'")}'" }.join(',')  })"}
         next if values.empty?
         log_time("#{self} insert(#{ values.size })") do
@@ -78,6 +79,7 @@ module CSVModel
           DataMapper.repository.adapter.execute(q.force_encoding('ASCII-8BIT'))
           progress.log if !ENV['VERBOSE']
         end
+        models = parses.shift(500)
       end
     end
 
