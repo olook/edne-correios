@@ -1,3 +1,4 @@
+# encoding: utf-8
 require "csv"
 
 module CSVModel
@@ -61,12 +62,29 @@ module CSVModel
     end
 
     def import_from_log
-      progress = ProgressLogger.new 100
+      progress = ProgressLogger.new 1
+      parses = nil
 
-      parse(log_file_name).each do |model|
-        model.save
-        progress.log
+      log_time("#{self} parse(#{log_file_name})") do
+        parses = parse(log_file_name)
       end
+
+      bulk_insert = "INSERT INTO #{self.storage_name} (#{self.column_names.join(',')}) VALUES "
+      while models = parses.shift(500) do
+        values = models.map{|m| "(#{ m.class.column_names.map{ |c| "'#{m.send(c).to_s.gsub("'", "\\'")}'" }.join(',')  })"}
+        next if values.empty?
+        log_time("#{self} insert(#{ values.size })") do
+          q = bulk_insert + values.join(',') + ';'
+          DataMapper.repository.adapter.execute(q.force_encoding('ASCII-8BIT'))
+          progress.log if !ENV['VERBOSE']
+        end
+      end
+    end
+
+    def log_time(label)
+      st = Time.now.to_f
+      yield
+      puts "#{label} #{'%0.2fms' % ( ( Time.now.to_f - st ) * 1000 )}" if ENV['VERBOSE']
     end
   end
 end
