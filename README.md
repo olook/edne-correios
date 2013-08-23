@@ -86,5 +86,5 @@ bundle exec rake import:join
 
 Para exportar a base, digite o seguinte comando:
 ```shell
-sqlite3 db/<banco>.sqlite3 -csv -header "select * from ceps;" > ceps.csv
+sqlite3 -csv -header db/<banco>.sqlite3 "select * from ceps;" > ceps.csv
 ```
