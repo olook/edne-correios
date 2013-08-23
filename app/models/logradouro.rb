@@ -25,13 +25,7 @@ class Logradouro < BaseModel
   def self.import_from_log
     %w(AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS RO RR SC SP SE TO).each do |uf|
       print "\n[#{uf}]\n"
-      progress = ProgressLogger.new 100
-
-      parse("./data/log/LOG_LOGRADOURO_#{uf}.TXT").each do |model|
-        model.save
-
-        progress.log
-      end
+      super("./data/log/LOG_LOGRADOURO_#{uf}.TXT")
     end
   end
 end

@@ -61,12 +61,13 @@ module CSVModel
       models
     end
 
-    def import_from_log
+    def import_from_log(file_name=nil)
       progress = ProgressLogger.new 1
       parses = nil
 
-      log_time("#{self} parse(#{log_file_name})") do
-        parses = parse(log_file_name)
+      file_name ||= log_file_name
+      log_time("#{self} parse(#{file_name})") do
+        parses = parse(file_name)
       end
 
       bulk_insert = "INSERT INTO #{self.storage_name} (#{self.column_names.join(',')}) VALUES "
