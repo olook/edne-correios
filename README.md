@@ -33,6 +33,9 @@ bundle exec rake db:migrate
 
 Depois de comprar a base [no site dos Correios](http://shopping.correios.com.br/wbm/shopping/script/default.aspx), você terá acesso aos arquivos na área de **Meus Downloads**. 
 
+login: rafael.manoel@olook.com.br
+senha: 934luli4
+
 Os Correios disponibilizam dois tipos de arquivos:
 
 <table>
